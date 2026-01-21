@@ -123,7 +123,7 @@ export const HeroSection = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gray-800 text-white font-semibold rounded-full hover:bg-gray-200 transition-colors"
+            className="px-4 py-2 md:px-8 md:py-4 bg-gray-800 text-sm md:text-base text-white font-semibold rounded-full hover:bg-gray-200 transition-colors"
             data-cursor-hover
             onClick={() =>
               document
@@ -137,7 +137,7 @@ export const HeroSection = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 border border-white text-white font-semibold rounded-full hover:bg-white hover:text-dark transition-colors"
+            className="px-4 py-2 md:px-8 md:py-4 border border-white text-sm md:text-base text-white font-semibold rounded-full hover:bg-white hover:text-dark transition-colors"
             data-cursor-hover
             onClick={() =>
               document
