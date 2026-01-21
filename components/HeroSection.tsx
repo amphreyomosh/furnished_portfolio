@@ -2,24 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Sphere, MeshDistortMaterial } from "@react-three/drei";
 import React from "react";
 
 const AnimatedSphere = () => {
-  return (
-    <Sphere visible args={[1, 100, 200]} scale={2}>
-      <MeshDistortMaterial
-        color="white"
-        attach="material"
-        distort={0.3}
-        speed={1.5}
-        roughness={0}
-        opacity={0.8}
-        transparent
-      />
-    </Sphere>
-  );
+  return null;
 };
 
 export const HeroSection = () => {
@@ -86,20 +72,15 @@ export const HeroSection = () => {
       className="relative h-screen flex items-center justify-center overflow-hidden bg-dark"
       style={{ perspective: "1500px" }}
     >
-      {/* 3D Background */}
-      <div className="absolute inset-0 opacity-30">
-        <Canvas camera={{ position: [0, 0, 5] }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} />
-          <AnimatedSphere />
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            autoRotate
-            autoRotateSpeed={0.5}
-          />
-        </Canvas>
-      </div>
+      {/* Video Background */}
+      <video
+        autoPlay
+        muted
+        loop
+        className="absolute inset-0 w-full h-full object-cover opacity-30"
+      >
+        <source src="/library/hero-video.mp4" type="video/mp4" />
+      </video>
 
       {/* Hero Content with Parallax */}
       <div

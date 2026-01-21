@@ -30,7 +30,7 @@ export const Footer = () => {
         </div>
 
         <p className="text-gray-light text-sm">
-          Built by <span className="underline hover:text-white transition-colors">Your Name</span>
+          Built by <span className="underline hover:text-white transition-colors">Harmo</span>
         </p>
       </div>
     </footer>
