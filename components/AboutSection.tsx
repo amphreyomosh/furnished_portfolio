@@ -3,6 +3,7 @@
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import React from "react";
+import { ArrowRight } from "lucide-react";
 
 export const AboutSection = () => {
   const { ref, inView } = useInView({
@@ -13,33 +14,49 @@ export const AboutSection = () => {
   return (
     <section
       id="about"
-      className="py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
+      className="py-32 px-6 md:px-12 lg:px-24 overflow-hidden bg-dark"
     >
       <div className="max-w-7xl mx-auto">
         <div
           ref={ref}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start"
         >
-          {/* Left Column - Headline */}
+          {/* Left Column - Header and CTA */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col justify-start"
           >
-            <h2 className="text-section font-bold leading-tight text-white mb-8">
-              Designing the
-              <br />
-              <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                Future of Web
-              </span>
-            </h2>
+            <div className="mb-8">
+              <h2 className="text-5xl md:text-6xl font-bold leading-tight text-white mb-6">
+                Front-End
+                <br />
+                <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                  Web Developer
+                </span>
+                <br />& UI Designer
+              </h2>
 
-            <motion.div
-              initial={{ width: 0 }}
-              animate={inView ? { width: "100px" } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="h-1 bg-white mb-8"
-            />
+              <motion.div
+                initial={{ width: 0 }}
+                animate={inView ? { width: "60px" } : {}}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="h-1 bg-white mb-8"
+              />
+            </div>
+
+            <motion.a
+              href="#contact"
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              whileHover={{ x: 5 }}
+              className="inline-flex items-center gap-3 px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors w-fit"
+            >
+              Let's Work Together
+              <ArrowRight className="w-5 h-5" />
+            </motion.a>
           </motion.div>
 
           {/* Right Column - Content */}
@@ -49,41 +66,59 @@ export const AboutSection = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="space-y-6"
           >
-            <div className="border-l-2 border-gray-600 pl-8">
-              <p className="text-body text-gray-light leading-relaxed font-serif mb-6">
-                I'm a passionate creative developer with over 5 years of
-                experience crafting digital experiences that push the boundaries
-                of what's possible on the web. My work sits at the intersection
-                of art and technology.
+            <div className="space-y-6">
+              <p className="text-lg text-gray-light leading-relaxed">
+                I'm a Front-End Web Developer and UI Designer who enjoys
+                creating modern, responsive, and user-friendly web experiences.
+                I love turning ideas and designs into clean, functional
+                interfaces that feel intuitive and work seamlessly across all
+                devices.
               </p>
 
-              <p className="text-body text-gray-light leading-relaxed font-serif mb-8">
-                From interactive installations to cutting-edge web applications,
-                I specialize in creating immersive experiences that captivate
-                and inspire. Every project is an opportunity to explore new
-                technologies and creative possibilities.
+              <p className="text-lg text-gray-light leading-relaxed">
+                My approach focuses on building websites that not only look good
+                but are easy to use and perform well. I design interfaces using
+                Figma, paying close attention to clarity, usability, and visual
+                balance before bringing them to life with React and Next.js.
               </p>
 
-              <div className="grid grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-white font-semibold mb-3">Frontend</h3>
-                  <ul className="text-gray-light space-y-1 text-sm">
-                    <li>React / Next.js</li>
-                    <li>Three.js / WebGL</li>
-                    <li>Framer Motion</li>
-                    <li>TypeScript</li>
-                  </ul>
-                </div>
+              <p className="text-lg text-gray-light leading-relaxed">
+                Alongside development, I also teach computer packages and web
+                design to students, which has strengthened my communication
+                skills and attention to best practices. With 2 years of
+                experience working with WordPress and Squarespace, I'm
+                comfortable creating both custom front-end solutions and
+                CMS-based websites, always aiming to deliver practical,
+                reliable, and impactful results.
+              </p>
+            </div>
 
-                <div>
-                  <h3 className="text-white font-semibold mb-3">Creative</h3>
-                  <ul className="text-gray-light space-y-1 text-sm">
-                    <li>3D Modeling</li>
-                    <li>Motion Graphics</li>
-                    <li>UI/UX Design</li>
-                    <li>Creative Coding</li>
-                  </ul>
-                </div>
+            {/* Skills Grid */}
+            <div className="mt-12 pt-8 border-t border-gray-800">
+              <h3 className="text-white font-semibold mb-6">
+                Skills & Expertise
+              </h3>
+              <div className="grid grid-cols-4 gap-4">
+                {[
+                  "React",
+                  "Next.js",
+                  "TypeScript",
+                  "Tailwind CSS",
+                  "Figma",
+                  "WordPress",
+                  "REST APIs",
+                  "Git",
+                ].map((skill, index) => (
+                  <motion.div
+                    key={skill}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.5 + index * 0.05 }}
+                    className="px-4 py-2 bg-gray-900 border border-gray-800 rounded text-gray-light text-sm text-center hover:border-gray-700 transition-colors"
+                  >
+                    {skill}
+                  </motion.div>
+                ))}
               </div>
             </div>
           </motion.div>
