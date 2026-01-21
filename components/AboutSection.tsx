@@ -94,32 +94,37 @@ export const AboutSection = () => {
             </div>
 
             {/* Skills Grid */}
-            <div className="mt-12 pt-8 border-t border-gray-800">
-              <h3 className="text-white font-semibold mb-6">
-                Skills & Expertise
-              </h3>
-              <div className="grid grid-cols-4 gap-4">
-                {[
-                  "React",
-                  "Next.js",
-                  "TypeScript",
-                  "Tailwind CSS",
-                  "Figma",
-                  "WordPress",
-                  "REST APIs",
-                  "Git",
-                ].map((skill, index) => (
-                  <motion.div
-                    key={skill}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.5 + index * 0.05 }}
-                    className="px-4 py-2 bg-gray-900 border border-gray-800 rounded text-gray-light text-sm text-center hover:border-gray-700 transition-colors"
-                  >
-                    {skill}
-                  </motion.div>
-                ))}
-              </div>
+            <div className="grid grid-cols-2 gap-6 mt-12 pt-8 border-t border-gray-800">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <h3 className="text-white font-semibold mb-3">Development</h3>
+                <ul className="text-gray-light space-y-2 text-sm">
+                  <li>React / Next.js</li>
+                  <li>TypeScript</li>
+                  <li>Tailwind CSS</li>
+                  <li>HTML / CSS / JS</li>
+                  <li>Responsive Design</li>
+                </ul>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <h3 className="text-white font-semibold mb-3">
+                  Design & Tools
+                </h3>
+                <ul className="text-gray-light space-y-2 text-sm">
+                  <li>Figma</li>
+                  <li>WordPress</li>
+                  <li>Squarespace</li>
+                  <li>UI/UX Design</li>
+                </ul>
+              </motion.div>
             </div>
           </motion.div>
         </div>
