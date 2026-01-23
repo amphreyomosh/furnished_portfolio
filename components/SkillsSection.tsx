@@ -4,22 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
 
 const allSkills = [
-  { name: "React", icon: "⚛️" },
-  { name: "Next.js", icon: "▲" },
-  { name: "TypeScript", icon: "TS" },
-  { name: "Tailwind CSS", icon: "🎨" },
-  { name: "Figma", icon: "🎭" },
-  { name: "Framer Motion", icon: "✨" },
-  { name: "REST APIs", icon: "🔌" },
-  { name: "Git", icon: "🔧" },
-  { name: "JavaScript", icon: "JS" },
-  { name: "HTML/CSS", icon: "📝" },
-  { name: "Web Performance", icon: "⚡" },
-  { name: "Responsive Design", icon: "📱" },
-  { name: "WordPress", icon: "W" },
-  { name: "Squarespace", icon: "S" },
-  { name: "UI/UX Design", icon: "✏️" },
-  { name: "Accessibility", icon: "♿" },
+  { name: "React", logo: "https://cdn.simpleicons.org/react/61DAFB" },
+  { name: "Next.js", logo: "https://cdn.simpleicons.org/nextdotjs/000000" },
+  { name: "Tailwind CSS", logo: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
+  { name: "Figma", logo: "https://cdn.simpleicons.org/figma/F24E1E" },
+  { name: "Git", logo: "https://cdn.simpleicons.org/git/F05032" },
+  { name: "HTML", logo: "https://cdn.simpleicons.org/html5/E34F26" },
+  { name: "CSS", logo: "https://cdn.simpleicons.org/css3/1572B6" },
+  { name: "WordPress", logo: "https://cdn.simpleicons.org/wordpress/21759B" },
+  { name: "Squarespace", logo: "https://cdn.simpleicons.org/squarespace/000000" },
+  { name: "Wix", logo: "https://cdn.simpleicons.org/wix/0C6EFC" },
 ];
 
 const getRandomSkills = (count: number) => {
@@ -29,21 +23,19 @@ const getRandomSkills = (count: number) => {
 
 export const SkillsSection = () => {
   const [displayedSkills, setDisplayedSkills] = useState<typeof allSkills>([]);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-    setDisplayedSkills(getRandomSkills(8));
+    setDisplayedSkills(getRandomSkills(9)); // Changed from 8 to 9 for 3x3 grid
 
     const interval = setInterval(() => {
-      setDisplayedSkills(getRandomSkills(8));
-    }, 6000);
+      setDisplayedSkills(getRandomSkills(9)); // Changed from 8 to 9
+    }, 4000); // Rotate every 4 seconds
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="skills" className="py-24 px-6 bg-dark">
+    <section id="skills" className="py-24 px-6 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -52,38 +44,34 @@ export const SkillsSection = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-600 bg-clip-text text-transparent">
             Skills & Expertise
           </h2>
-          <p className="text-xl text-gray-light max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             A comprehensive toolkit of modern technologies and methodologies.
           </p>
         </motion.div>
 
-        {/* Skills Grid - 4 per row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+        {/* Skills Grid - 3 per row on mobile, 4 per row on desktop (9 logos rotating) */}
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-6 md:gap-12 max-w-4xl mx-auto">
           <AnimatePresence mode="popLayout">
-            {displayedSkills.map((skill, index) => (
+            {displayedSkills.map((skill) => (
               <motion.div
                 key={skill.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
                 transition={{
                   duration: 0.5,
-                  delay: index * 0.05,
                   ease: "easeInOut",
                 }}
-                className="group relative"
+                className="flex items-center justify-center"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-xl blur-xl group-hover:blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-300" />
-
-                <div className="relative p-8 bg-gray-900/50 border border-gray-800 rounded-xl hover:border-purple-500/50 transition-all duration-300 h-full flex flex-col items-center justify-center min-h-40">
-                  <div className="text-6xl mb-4">{skill.icon}</div>
-                  <h3 className="text-lg font-bold text-white text-center">
-                    {skill.name}
-                  </h3>
-                </div>
+                <img 
+                  src={skill.logo} 
+                  alt={`${skill.name} logo`}
+                  className="w-16 h-16 md:w-24 md:h-24 object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                />
               </motion.div>
             ))}
           </AnimatePresence>
