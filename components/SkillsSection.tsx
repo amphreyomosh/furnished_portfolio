@@ -10,7 +10,6 @@ const allSkills = [
   { name: "Figma", logo: "https://cdn.simpleicons.org/figma/F24E1E" },
   { name: "Git", logo: "https://cdn.simpleicons.org/git/F05032" },
   { name: "HTML", logo: "https://cdn.simpleicons.org/html5/E34F26" },
-  { name: "CSS", logo: "https://cdn.simpleicons.org/css3/1572B6" },
   { name: "WordPress", logo: "https://cdn.simpleicons.org/wordpress/21759B" },
   { name: "Squarespace", logo: "https://cdn.simpleicons.org/squarespace/000000" },
   { name: "Wix", logo: "https://cdn.simpleicons.org/wix/0C6EFC" },
@@ -23,15 +22,62 @@ const getRandomSkills = (count: number) => {
 
 export const SkillsSection = () => {
   const [displayedSkills, setDisplayedSkills] = useState<typeof allSkills>([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setDisplayedSkills(getRandomSkills(9)); // Changed from 8 to 9 for 3x3 grid
+    // Check if mobile on mount
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
 
-    const interval = setInterval(() => {
-      setDisplayedSkills(getRandomSkills(9)); // Changed from 8 to 9
-    }, 4000); // Rotate every 4 seconds
+    // Initialize with random logos based on screen size
+    const count = window.innerWidth < 768 ? 9 : 8;
+    const initialSkills = getRandomSkills(count);
+    setDisplayedSkills(initialSkills);
 
-    return () => clearInterval(interval);
+    // Create individual timers for each logo position
+    const timers: NodeJS.Timeout[] = [];
+    
+    initialSkills.forEach((_, index) => {
+      // Random interval between 10-20 seconds for each logo
+      const randomInterval = 10000 + Math.random() * 10000;
+      
+      const timer = setTimeout(function shuffleLogo() {
+        setDisplayedSkills(prev => {
+          const newSkills = [...prev];
+          const currentCount = window.innerWidth < 768 ? 9 : 8;
+          
+          // Only shuffle if we still have the same number of logos
+          if (newSkills.length === currentCount) {
+            // Get a random logo that's not currently displayed
+            const availableLogos = allSkills.filter(skill => 
+              !newSkills.some(displayed => displayed.name === skill.name)
+            );
+            
+            if (availableLogos.length > 0) {
+              const randomLogo = availableLogos[Math.floor(Math.random() * availableLogos.length)];
+              newSkills[index] = randomLogo;
+            }
+          }
+          
+          return newSkills;
+        });
+        
+        // Schedule next shuffle for this position with new random interval
+        const nextInterval = 10000 + Math.random() * 10000;
+        timers[index] = setTimeout(shuffleLogo, nextInterval);
+      }, randomInterval);
+      
+      timers.push(timer);
+    });
+
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   return (
@@ -52,17 +98,17 @@ export const SkillsSection = () => {
           </p>
         </motion.div>
 
-        {/* Skills Grid - 3 per row on mobile, 4 per row on desktop (9 logos rotating) */}
-        <div className="grid grid-cols-3 md:grid-cols-4 gap-6 md:gap-12 max-w-4xl mx-auto">
-          <AnimatePresence mode="popLayout">
+        {/* Skills Grid - Mobile: 3 rows (3x3), Desktop: 2 rows (4x2) */}
+        <div className="grid grid-cols-3 md:grid-cols-4 md:grid-rows-2 gap-6 md:gap-12 max-w-4xl mx-auto">
+          <AnimatePresence mode="sync">
             {displayedSkills.map((skill) => (
               <motion.div
                 key={skill.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{
-                  duration: 0.5,
+                  duration: 0.8,
                   ease: "easeInOut",
                 }}
                 className="flex items-center justify-center"
